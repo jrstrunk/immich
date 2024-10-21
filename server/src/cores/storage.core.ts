@@ -105,6 +105,14 @@ export class StorageCore {
     return originalPath.startsWith(StorageCore.getBaseFolder(StorageFolder.ENCODED_VIDEO));
   }
 
+  static isAbsolutePath(path: string) {
+    if (!path.startsWith('/')) {
+      return false;
+    }
+
+    return path === resolve(path);
+  }
+
   static isImmichPath(path: string) {
     const resolvedPath = resolve(path);
     const resolvedAppMediaLocation = resolve(APP_MEDIA_LOCATION);

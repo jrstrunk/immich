@@ -263,6 +263,11 @@ export class LibraryService extends BaseService {
     const validation = new ValidateLibraryImportPathResponseDto();
     validation.importPath = importPath;
 
+    if (!StorageCore.isAbsolutePath(importPath)) {
+      validation.message = `Import path must be absolute, try ${path.resolve(importPath)}`;
+      return validation;
+    }
+
     if (StorageCore.isImmichPath(importPath)) {
       validation.message = 'Cannot use media upload folder for external libraries';
       return validation;
